@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://1rqcm652bopd"]
+
+[ext_resource type="Script" path="res://player/player.gd" id="1_qnq8n"]
+[ext_resource type="Texture2D" uid="uid://dfsbblg2ixlu4" path="res://icon.svg" id="2_jgip6"]
+[ext_resource type="PackedScene" uid="uid://c3r12ciu01krw" path="res://explosion/explosion.tscn" id="3_n8xbx"]
+[ext_resource type="Script" path="res://components/movement_component.gd" id="4_3w7wj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y335e"]
+size = Vector2(32, 32)
+
+[node name="Player" type="Node2D"]
+position = Vector2(480, 520)
+script = ExtResource("1_qnq8n")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(0, -200)
+limit_left = 0
+limit_right = 960
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_jgip6")
+metadata/_edit_group_ = true
+
+[node name="Explosion" parent="." instance=ExtResource("3_n8xbx")]
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+modulate = Color(1, 0, 0, 1)
+shape = SubResource("RectangleShape2D_y335e")
+metadata/_edit_group_ = true
+
+[node name="MovementComponent" type="Node" parent="." node_paths=PackedStringArray("actor")]
+script = ExtResource("4_3w7wj")
+actor = NodePath("..")
+
+[node name="ShootingCooldown" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="ShootingCooldown" to="." method="_on_shooting_cooldown_timeout"]

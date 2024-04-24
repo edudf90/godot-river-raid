@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://dhab554ignq76"]
+
+[ext_resource type="Script" path="res://mobs/fuel_station/fuel_station.gd" id="1_fku5a"]
+[ext_resource type="Texture2D" uid="uid://dfsbblg2ixlu4" path="res://icon.svg" id="1_j1qox"]
+[ext_resource type="Script" path="res://components/getting_shot_component.gd" id="3_cmpny"]
+[ext_resource type="Script" path="res://components/movement_component.gd" id="4_waxp7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vejov"]
+size = Vector2(32, 64)
+
+[node name="FuelStation" type="Node2D"]
+script = ExtResource("1_fku5a")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.67451, 0.439216, 0.121569, 1)
+scale = Vector2(0.25, 0.5)
+texture = ExtResource("1_j1qox")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_vejov")
+
+[node name="GettingShotComponent" type="Node" parent="." node_paths=PackedStringArray("area", "actor", "movement_component")]
+script = ExtResource("3_cmpny")
+area = NodePath("../Area2D")
+actor = NodePath("..")
+movement_component = NodePath("../MovementComponent")
+
+[node name="MovementComponent" type="Node" parent="."]
+script = ExtResource("4_waxp7")

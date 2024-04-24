@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://c53aur6bo3kwi"]
+
+[ext_resource type="Script" path="res://fuel/fuel.gd" id="1_ay81n"]
+
+[node name="Fuel" type="Node2D"]
+script = ExtResource("1_ay81n")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 5.0
+offset_right = 305.0
+offset_bottom = 10.0
+
+[node name="EF" type="Label" parent="."]
+offset_top = 20.0
+offset_right = 40.0
+offset_bottom = 46.0
+text = "E                                                                      F"
+
+[node name="I" type="Label" parent="."]
+offset_left = 2.0
+offset_right = 307.0
+offset_bottom = 26.0
+text = "I                                                                       I"

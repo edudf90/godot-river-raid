@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://dbwrpu7mryony"]
+
+[ext_resource type="Script" path="res://game/game.gd" id="1_un0ln"]
+[ext_resource type="PackedScene" uid="uid://1rqcm652bopd" path="res://player/player.tscn" id="2_n8n3k"]
+[ext_resource type="PackedScene" uid="uid://bdcwnqogdk2ot" path="res://level_manager/level_manager.tscn" id="3_8efy8"]
+[ext_resource type="PackedScene" uid="uid://bx2tonf4enxii" path="res://score/score.tscn" id="4_mm7i2"]
+[ext_resource type="PackedScene" uid="uid://cqa73fa38314m" path="res://lives/lives.tscn" id="5_bh35t"]
+[ext_resource type="PackedScene" uid="uid://c53aur6bo3kwi" path="res://fuel/fuel.tscn" id="6_5e7ly"]
+
+[node name="Game" type="Node2D"]
+position = Vector2(0, 2)
+script = ExtResource("1_un0ln")
+
+[node name="Player" parent="." instance=ExtResource("2_n8n3k")]
+
+[node name="LevelManager" parent="." instance=ExtResource("3_8efy8")]
+
+[node name="Score" parent="." instance=ExtResource("4_mm7i2")]
+position = Vector2(100, 600)
+
+[node name="Lives" parent="." instance=ExtResource("5_bh35t")]
+position = Vector2(200, 600)
+
+[node name="Fuel" parent="." instance=ExtResource("6_5e7ly")]
+position = Vector2(480, 600)
+
+[connection signal="accelerated" from="Player" to="LevelManager" method="_on_player_accelerated"]
+[connection signal="died" from="Player" to="LevelManager" method="_on_player_died"]
+[connection signal="entered_fuel_station" from="Player" to="." method="_on_player_entered_fuel_station"]
+[connection signal="left_fuel_station" from="Player" to="." method="_on_player_left_fuel_station"]
+[connection signal="respawned" from="Player" to="." method="_on_player_respawned"]
+[connection signal="respawned" from="Player" to="LevelManager" method="_on_player_respawned"]
+[connection signal="returned_to_default_speed" from="Player" to="LevelManager" method="_on_player_returned_to_default_speed"]
+[connection signal="slowed_down" from="Player" to="LevelManager" method="_on_player_slowed_down"]
+[connection signal="updated_levels_behind" from="LevelManager" to="Player" method="_on_level_manager_updated_levels_behind"]
+[connection signal="empty" from="Fuel" to="." method="_on_fuel_empty"]

@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://c3blkdh1k1de6"]
+
+[ext_resource type="Script" path="res://components/movement_component.gd" id="1_ddf6t"]
+[ext_resource type="Script" path="res://mobs/chopper/chopper.gd" id="1_qjjcf"]
+[ext_resource type="Texture2D" uid="uid://dfsbblg2ixlu4" path="res://icon.svg" id="2_ka50b"]
+[ext_resource type="Script" path="res://components/getting_shot_component.gd" id="4_7i11f"]
+[ext_resource type="Script" path="res://components/border_collision_handler.gd" id="5_6t0go"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_chuix"]
+size = Vector2(32, 32)
+
+[node name="Chopper" type="Node2D"]
+script = ExtResource("1_qjjcf")
+
+[node name="MovementComponent" type="Node" parent="." node_paths=PackedStringArray("actor")]
+script = ExtResource("1_ddf6t")
+actor = NodePath("..")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.901961, 0.890196, 0.258824, 1)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_ka50b")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_chuix")
+
+[node name="GettingShotComponent" type="Node" parent="." node_paths=PackedStringArray("area", "actor", "movement_component")]
+script = ExtResource("4_7i11f")
+area = NodePath("../Area2D")
+actor = NodePath("..")
+movement_component = NodePath("../MovementComponent")
+
+[node name="BorderCollisionHandler" type="Node" parent="." node_paths=PackedStringArray("area", "movement_component")]
+script = ExtResource("5_6t0go")
+area = NodePath("../Area2D")
+movement_component = NodePath("../MovementComponent")

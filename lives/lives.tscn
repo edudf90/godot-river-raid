@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cqa73fa38314m"]
+
+[ext_resource type="Script" path="res://lives/lives.gd" id="1_wswld"]
+[ext_resource type="Texture2D" uid="uid://dfsbblg2ixlu4" path="res://icon.svg" id="2_2hpl8"]
+
+[node name="Lives" type="Node2D"]
+script = ExtResource("1_wswld")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 19.0
+offset_right = 59.0
+offset_bottom = 23.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 10)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_2hpl8")
